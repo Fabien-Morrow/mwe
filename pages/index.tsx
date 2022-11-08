@@ -1,11 +1,10 @@
 import React from "react";
-import Image from "next/image";
-
-export default function Home({ name }: { name: string }) {
-  return (
-    <div>
-      <div>hello</div>
-      <div>{name}</div>
-    </div>
-  );
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useCryptoDevsToken } from "../hooks/useCryptoDevsToken";
+import { useAccount } from "wagmi";
+export default function Home() {
+  const { address } = useAccount();
+  const { data } = useCryptoDevsToken(address);
+  console.log(data);
+  return <ConnectButton />;
 }

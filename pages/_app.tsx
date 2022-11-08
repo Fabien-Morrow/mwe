@@ -1,8 +1,6 @@
 import type { AppProps } from "next/app";
 
-import { useState } from "react";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiConfig, createClient, chain, configureChains } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -22,13 +20,10 @@ const wagmiClient = createClient({
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-        <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
-        </QueryClientProvider>
+        <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
   );
